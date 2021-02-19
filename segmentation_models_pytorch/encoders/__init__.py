@@ -14,6 +14,7 @@ from .xception import xception_encoders
 from .timm_efficientnet import timm_efficientnet_encoders
 from .timm_resnest import timm_resnest_encoders
 from .timm_res2net import timm_res2net_encoders
+from .timm_resnet import timm_resnet_encoders
 from .timm_regnet import timm_regnet_encoders
 from .timm_sknet import timm_sknet_encoders
 from ._preprocessing import preprocess_input
@@ -32,6 +33,7 @@ encoders.update(xception_encoders)
 encoders.update(timm_efficientnet_encoders)
 encoders.update(timm_resnest_encoders)
 encoders.update(timm_res2net_encoders)
+encoders.update(timm_resnet_encoders)
 encoders.update(timm_regnet_encoders)
 encoders.update(timm_sknet_encoders)
 
@@ -41,7 +43,11 @@ def get_encoder(name, in_channels=3, depth=5, weights=None):
     try:
         Encoder = encoders[name]["encoder"]
     except KeyError:
-        raise KeyError("Wrong encoder name `{}`, supported encoders: {}".format(name, list(encoders.keys())))
+        raise KeyError(
+            "Wrong encoder name `{}`, supported encoders: {}".format(
+                name, list(encoders.keys())
+            )
+        )
 
     params = encoders[name]["params"]
     params.update(depth=depth)
@@ -51,9 +57,13 @@ def get_encoder(name, in_channels=3, depth=5, weights=None):
         try:
             settings = encoders[name]["pretrained_settings"][weights]
         except KeyError:
-            raise KeyError("Wrong pretrained weights `{}` for encoder `{}`. Available options are: {}".format(
-                weights, name, list(encoders[name]["pretrained_settings"].keys()),
-            ))
+            raise KeyError(
+                "Wrong pretrained weights `{}` for encoder `{}`. Available options are: {}".format(
+                    weights,
+                    name,
+                    list(encoders[name]["pretrained_settings"].keys()),
+                )
+            )
         encoder.load_state_dict(model_zoo.load_url(settings["url"]))
 
     encoder.set_in_channels(in_channels)
