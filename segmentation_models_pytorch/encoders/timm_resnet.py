@@ -43,6 +43,9 @@ resnet_weights = {
     "resnet200d": {
         "imagenet": "https://github.com/rwightman/pytorch-image-models/releases/download/v0.1-weights/resnet200d_ra2-bdba9bf9.pth",
     },
+    "seresnet152d": {
+        "imagenet": "https://github.com/rwightman/pytorch-image-models/releases/download/v0.1-weights/seresnet152d_ra2-04464dd2.pth",
+    },
 }
 
 pretrained_settings = {}
@@ -70,6 +73,19 @@ timm_resnet_encoders = {
             "stem_type": "deep",
             "stem_width": 32,
             "avg_down": True,
+        },
+    },
+    "seresnet152d": {
+        "encoder": ResNetEncoder,
+        "pretrained_settings": pretrained_settings["seresnet152d"],
+        "params": {
+            "out_channels": (3, 64, 256, 512, 1024, 2048),
+            "block": Bottleneck,
+            "layers": [3, 8, 36, 3],
+            "stem_type": "deep",
+            "stem_width": 32,
+            "avg_down": True,
+            "block_args": dict(attn_layer="se"),
         },
     },
 }

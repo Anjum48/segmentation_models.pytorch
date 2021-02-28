@@ -17,7 +17,8 @@ from .timm_res2net import timm_res2net_encoders
 from .timm_resnet import timm_resnet_encoders
 from .timm_regnet import timm_regnet_encoders
 from .timm_sknet import timm_sknet_encoders
-from .timm_nfnet import timm_nfnet_encoders
+
+# from .timm_nfnet import timm_nfnet_encoders
 from ._preprocessing import preprocess_input
 
 encoders = {}
