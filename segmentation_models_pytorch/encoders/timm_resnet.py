@@ -1,5 +1,5 @@
 from ._base import EncoderMixin
-from timm.models.resnet import ResNet, Bottleneck
+from timm.models.resnet import ResNet, Bottleneck, BasicBlock
 import torch.nn as nn
 
 
@@ -40,6 +40,9 @@ class ResNetEncoder(ResNet, EncoderMixin):
 
 
 resnet_weights = {
+    "resnet34d": {
+        "imagenet": "https://github.com/rwightman/pytorch-image-models/releases/download/v0.1-weights/resnet34d_ra2-f8dcfcaf.pth"
+    },
     "resnet200d": {
         "imagenet": "https://github.com/rwightman/pytorch-image-models/releases/download/v0.1-weights/resnet200d_ra2-bdba9bf9.pth",
     },
@@ -63,6 +66,18 @@ for model_name, sources in resnet_weights.items():
 
 
 timm_resnet_encoders = {
+    "resnet34d": {
+        "encoder": ResNetEncoder,
+        "pretrained_settings": pretrained_settings["resnet34d"],
+        "params": {
+            "out_channels": (3, 64, 64, 128, 256, 512),
+            "block": BasicBlock,
+            "layers": [3, 4, 6, 3],
+            "stem_type": "deep",
+            "stem_width": 32,
+            "avg_down": True,
+        },
+    },
     "resnet200d": {
         "encoder": ResNetEncoder,
         "pretrained_settings": pretrained_settings["resnet200d"],
