@@ -41,7 +41,13 @@ class ResNetEncoder(ResNet, EncoderMixin):
 
 resnet_weights = {
     "resnet34d": {
-        "imagenet": "https://github.com/rwightman/pytorch-image-models/releases/download/v0.1-weights/resnet34d_ra2-f8dcfcaf.pth"
+        "imagenet": "https://github.com/rwightman/pytorch-image-models/releases/download/v0.1-weights/resnet34d_ra2-f8dcfcaf.pth",
+    },
+    "resnet50d": {
+        "imagenet": "https://github.com/rwightman/pytorch-image-models/releases/download/v0.1-weights/resnet50d_ra2-464e36ba.pth",
+    },
+    "resnet101d": {
+        "imagenet": "https://github.com/rwightman/pytorch-image-models/releases/download/v0.1-weights/resnet101d_ra2-2803ffab.pth",
     },
     "resnet200d": {
         "imagenet": "https://github.com/rwightman/pytorch-image-models/releases/download/v0.1-weights/resnet200d_ra2-bdba9bf9.pth",
@@ -73,6 +79,30 @@ timm_resnet_encoders = {
             "out_channels": (3, 64, 64, 128, 256, 512),
             "block": BasicBlock,
             "layers": [3, 4, 6, 3],
+            "stem_type": "deep",
+            "stem_width": 32,
+            "avg_down": True,
+        },
+    },
+    "resnet50d": {
+        "encoder": ResNetEncoder,
+        "pretrained_settings": pretrained_settings["resnet50d"],
+        "params": {
+            "out_channels": (3, 64, 256, 512, 1024, 2048),
+            "block": Bottleneck,
+            "layers": [3, 4, 6, 3],
+            "stem_type": "deep",
+            "stem_width": 32,
+            "avg_down": True,
+        },
+    },
+    "resnet101d": {
+        "encoder": ResNetEncoder,
+        "pretrained_settings": pretrained_settings["resnet101d"],
+        "params": {
+            "out_channels": (3, 64, 256, 512, 1024, 2048),
+            "block": Bottleneck,
+            "layers": [3, 4, 23, 3],
             "stem_type": "deep",
             "stem_width": 32,
             "avg_down": True,
