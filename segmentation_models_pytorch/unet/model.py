@@ -59,6 +59,7 @@ class Unet(SegmentationModel):
         classes: int = 1,
         activation: Optional[Union[str, callable]] = None,
         aux_params: Optional[dict] = None,
+        interpolation_type: Optional[str] = "nearest",
     ):
         super().__init__()
 
