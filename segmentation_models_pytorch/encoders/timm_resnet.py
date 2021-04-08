@@ -84,6 +84,32 @@ timm_resnet_encoders = {
             "avg_down": True,
         },
     },
+    "resnet34d_stride16": {
+        "encoder": ResNetEncoder,
+        "pretrained_settings": pretrained_settings["resnet34d"],
+        "params": {
+            "out_channels": (3, 64, 64, 128, 256, 512),
+            "block": BasicBlock,
+            "layers": [3, 4, 6, 3],
+            "stem_type": "deep",
+            "stem_width": 32,
+            "avg_down": True,
+            "output_stride": 16,
+        },
+    },
+    "resnet34d_stride8": {
+        "encoder": ResNetEncoder,
+        "pretrained_settings": pretrained_settings["resnet34d"],
+        "params": {
+            "out_channels": (3, 64, 64, 128, 256, 512),
+            "block": BasicBlock,
+            "layers": [3, 4, 6, 3],
+            "stem_type": "deep",
+            "stem_width": 32,
+            "avg_down": True,
+            "output_stride": 8,
+        },
+    },
     "resnet50d": {
         "encoder": ResNetEncoder,
         "pretrained_settings": pretrained_settings["resnet50d"],
